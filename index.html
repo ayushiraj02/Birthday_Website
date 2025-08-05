@@ -18,14 +18,15 @@
       font-family: 'Poppins', sans-serif;
       overflow-x: hidden;
       position: relative;
+      min-height: 100vh;
     }
     .sparkle {
       position: absolute;
-      width: 12px;
-      height: 12px;
+      width: 8px;
+      height: 8px;
       background: #fff;
       border-radius: 50%;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
       animation: sparkle 2.5s infinite;
     }
     @keyframes sparkle {
@@ -35,8 +36,8 @@
     }
     .heart {
       position: absolute;
-      width: 15px;
-      height: 15px;
+      width: 12px;
+      height: 12px;
       background: #ff4d94;
       transform: rotate(-45deg);
       animation: float 5s infinite;
@@ -44,46 +45,45 @@
     .heart::before,
     .heart::after {
       content: '';
-      width: 15px;
-      height: 15px;
+      width: 12px;
+      height: 12px;
       background: #ff4d94;
       border-radius: 50%;
       position: absolute;
     }
-    .heart::before { top: -7.5px; left: 0; }
-    .heart::after { left: 7.5px; top: 0; }
+    .heart::before { top: -6px; left: 0; }
+    .heart::after { left: 6px; top: 0; }
     @keyframes float {
       0% { transform: translateY(0) rotate(-45deg); opacity: 1; }
       100% { transform: translateY(-100vh) rotate(-45deg); opacity: 0; }
     }
     .photo-frame {
       position: relative;
-      border: 10px solid #ff99cc;
+      border: 8px solid #ff99cc;
       border-radius: 50%;
-      box-shadow: 0 0 25px rgba(255, 105, 180, 0.7);
-      width: 320px;
-      height: 320px;
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.7);
       overflow: hidden;
       z-index: 1;
+      margin: 0 auto;
     }
     .photo-frame::before {
       content: '🌟';
       position: absolute;
-      font-size: 48px;
-      top: -50px;
+      font-size: 32px;
+      top: -30px;
       left: 50%;
       transform: translateX(-50%);
-      text-shadow: 0 0 15px #ff4d94, 0 0 30px #fff, 0 0 45px #ff99cc;
+      text-shadow: 0 0 10px #ff4d94, 0 0 20px #fff, 0 0 30px #ff99cc;
       animation: glow 1s infinite;
-      z-index: 10; /* Increased to ensure visibility */
+      z-index: 10;
     }
     .photo-frame .star-orbit {
       position: absolute;
-      width: 20px;
-      height: 20px;
-      font-size: 20px;
+      width: 16px;
+      height: 16px;
+      font-size: 16px;
       color: #fff;
-      text-shadow: 0 0 10px #ff4d94;
+      text-shadow: 0 0 8px #ff4d94;
       z-index: 5;
     }
     @keyframes glow {
@@ -95,7 +95,7 @@
       position: relative;
       width: 100%;
       height: 100%;
-      z-index: 2; /* Ensure carousel is below the main star */
+      z-index: 2;
     }
     .photo-carousel img {
       position: absolute;
@@ -115,11 +115,11 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .kdrama-card:hover, .med-card:hover {
-      transform: scale(1.1) rotate(2deg);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+      transform: scale(1.05) rotate(2deg);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
     #countdown {
-      text-shadow: 0 0 15px #ff4d94, 0 0 30px #ff4d94;
+      text-shadow: 0 0 10px #ff4d94, 0 0 20px #ff4d94;
     }
     .typewriter {
       overflow: hidden;
@@ -135,25 +135,93 @@
       from, to { border-color: transparent; }
       50% { border-color: #ff4d94; }
     }
+    
+    /* Mobile-specific adjustments */
+    @media (max-width: 640px) {
+      .photo-frame {
+        width: 200px;
+        height: 200px;
+        border-width: 6px;
+      }
+      .photo-frame::before {
+        font-size: 24px;
+        top: -25px;
+      }
+      .photo-frame .star-orbit {
+        width: 12px;
+        height: 12px;
+        font-size: 12px;
+      }
+      #birthdayText {
+        font-size: 2rem;
+        white-space: normal;
+        border-right: none;
+        animation: none;
+      }
+      .typewriter {
+        white-space: normal;
+        border-right: none;
+        animation: none;
+      }
+      #countdown {
+        font-size: 3rem;
+      }
+      .kdrama-card, .med-card {
+        padding: 1.5rem;
+      }
+      #surpriseBtn {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+      }
+    }
+
+
+
+
+
+    .timeline-content::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+.timeline-content:nth-child(odd)::before {
+  right: -15px;
+  border-width: 10px 0 10px 15px;
+  border-color: transparent transparent transparent #fff;
+}
+
+.timeline-content:nth-child(even)::before {
+  left: -15px;
+  border-width: 10px 15px 10px 0;
+  border-color: transparent #fff transparent transparent;
+}
+
+@media (max-width: 640px) {
+  .timeline-content {
+    max-width: 250px;
+  }
+}
   </style>
 </head>
 <body class="text-gray-900">
   <!-- Header Section -->
-  <header class="text-center py-12">
-    <h1 class="text-6xl font-bold text-pink-600 font-pacifico typewriter inline-block" id="birthdayText">Happy 20th Birthday, Sis!</h1>
-    <p class="text-2xl mt-4 text-white font-semibold">Our K-Drama Queen & Future Doctor!</p>
+  <header class="text-center py-8 px-4 sm:py-12 sm:px-8">
+    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-pink-600 font-pacifico typewriter inline-block" id="birthdayText">Happy 20th Birthday, Sis!</h1>
+    <p class="text-xl sm:text-2xl mt-4 text-white font-semibold">Our K-Drama Queen & Future Doctor!</p>
   </header>
 
   <!-- Photo Section with Carousel -->
-  <section class="flex justify-center my-12">
-    <div class="photo-frame">
+  <section class="flex justify-center my-8 sm:my-12 px-4">
+    <div class="photo-frame w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80">
       <div class="photo-carousel">
         <img src="images/sister-photo1.jpg" alt="Sis Photo 1" class="active">
         <img src="images/sister-photo2.jpg" alt="Sis Photo 2">
         <img src="images/sister-photo3.jpg" alt="Sis Photo 3">
-        
         <img src="images/sister-photo4.jpg" alt="Sis Photo 5">
-
       </div>
       <!-- Orbiting Stars -->
       <div class="star-orbit" style="top: 10%; left: 10%;" data-angle="0">✨</div>
@@ -163,50 +231,73 @@
   </section>
 
   <!-- Countdown Section -->
-  <section class="text-center my-12">
-    <h2 class="text-4xl font-semibold text-purple-800 font-pacifico">Your Epic Journey</h2>
-    <p class="text-xl mt-2 text-white">Days since you blessed our world on August 5, 2005:</p>
-    <div id="countdown" class="text-6xl font-bold text-pink-500 mt-4"></div>
+  <section class="text-center my-8 sm:my-12 px-4">
+    <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-purple-800 font-pacifico">Your Epic Journey</h2>
+    <p class="text-lg sm:text-xl mt-2 text-white">Days since you blessed our world on August 5, 2005:</p>
+    <div id="countdown" class="text-4xl sm:text-5xl md:text-6xl font-bold text-pink-500 mt-4"></div>
   </section>
 
-  <!-- K-Drama and Medical College Section -->
-  <section class="text-center my-12 px-6">
-    <h2 class="text-4xl font-semibold text-purple-800 font-pacifico mb-8">Celebrating You!</h2>
-    <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
-      <!-- K-Drama Card -->
-      <div class="kdrama-card bg-white p-8 rounded-xl shadow-xl">
-        <h3 class="text-2xl font-semibold text-pink-600">Your K-Drama Obsession</h3>
-        <p class="mt-2 text-gray-700">
-          Swooning over *Crash Landing on You* or crying with *Goblin*? Your love for K-dramas brings magic to every moment!
-        </p>
-      </div>
-      <!-- Medical College Card -->
-      <div class="med-card bg-white p-8 rounded-xl shadow-xl">
-        <h3 class="text-2xl font-semibold text-pink-600">Future Dr. Legend!</h3>
-        <p class="mt-2 text-gray-700">
-          You’re stepping into medical college like a K-drama hero! Your heart and brilliance will save lives and inspire us all!
+    
+  <!-- Timeline Section -->
+<section class="text-center my-8 sm:my-12 px-4 sm:px-6">
+  <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-purple-800 font-pacifico">Your Beautiful Journey</h2>
+  <div class="max-w-3xl mx-auto mt-8 relative">
+    <!-- Timeline line -->
+    <div class="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-pink-400 to-purple-400"></div>
+    
+    <!-- Timeline items -->
+    <div class="relative mb-12">
+      <div class="timeline-dot absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-pink-500 border-4 border-white shadow-lg"></div>
+      <div class="timeline-content bg-white p-6 rounded-lg shadow-lg max-w-xs sm:max-w-sm mx-auto relative">
+        <h3 class="text-lg font-semibold text-pink-600">The Secret K-Drama Queen</h3>
+        <p class="mt-2 text-sm text-gray-700">
+          Always the topper who no one knew was secretly a K-drama addict! From "My Girlfriend is an Alien" to "Goblin", you managed to ace exams while keeping us all hooked on those late-night binge sessions.
         </p>
       </div>
     </div>
-  </section>
+    
+    <div class="relative mb-12">
+      <div class="timeline-dot absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-purple-500 border-4 border-white shadow-lg"></div>
+      <div class="timeline-content bg-white p-6 rounded-lg shadow-lg max-w-xs sm:max-w-sm mx-auto relative">
+        <h3 class="text-lg font-semibold text-purple-600">Following Your Calling</h3>
+        <p class="mt-2 text-sm text-gray-700">
+          After acing every exam, you chose the noble path of medicine. Your dedication and brilliance will make you an amazing doctor - though we all know you'll still find time for the occasional drama marathon!
+        </p>
+      </div>
+    </div>
+    
+    <div class="relative">
+      <div class="timeline-dot absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-indigo-500 border-4 border-white shadow-lg"></div>
+      <div class="timeline-content bg-white p-6 rounded-lg shadow-lg max-w-xs sm:max-w-sm mx-auto relative">
+        <h3 class="text-lg font-semibold text-indigo-600">Bright Future Ahead</h3>
+        <p class="mt-2 text-sm text-gray-700">
+          Two decades of amazing you! Here's to more adventures, more dramas, and all your dreams coming true. The world isn't ready for Dr. Priyanshi Raj ! Love you sis!
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
   <!-- Surprise Section -->
-  <section class="text-center my-12">
-    <button id="surpriseBtn" class="bg-pink-600 text-white px-10 py-4 rounded-full text-xl font-semibold hover:bg-pink-700 transition transform hover:scale-110">Unwrap Your K-Drama Surprise!</button>
-    <div id="surpriseSection" class="mt-8">
-      <h2 class="text-4xl font-bold text-purple-800 font-pacifico">A Magical Surprise for You!</h2>
-      <p class="text-xl mt-4 max-w-2xl mx-auto text-white">
-        You’re my favorite K-drama partner and future doctor! Here’s to endless marathons and saving lives!
+  <section class="text-center my-8 sm:my-12 px-4">
+    <button id="surpriseBtn" class="bg-pink-600 text-white px-6 py-3 sm:px-8 sm:py-3 md:px-10 md:py-4 rounded-full text-base sm:text-lg md:text-xl font-semibold hover:bg-pink-700 transition transform hover:scale-105 active:scale-95">
+      Unwrap Your Cake!
+    </button>
+    
+    <div id="surpriseSection" class="mt-6 sm:mt-8 px-4">
+      <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-purple-800 font-pacifico">A Magical Surprise for You!</h2>
+      <p class="text-base sm:text-lg mt-3 sm:mt-4 max-w-md sm:max-w-xl mx-auto text-white">
+         Happy 20th Birthday, Sister! 🎉 From late-night dramas to big dreams in white coats — you’ve come so far, and this is just the beginning. Shine on!
       </p>
-      <div class="mt-8">
-        <img src="images/cake.png" alt="Birthday Cake" class="mx-auto w-48 h-48" id="cake">
+      <div class="mt-6 sm:mt-8">
+        <img src="images/cake.png" alt="Birthday Cake" class="mx-auto w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48" id="cake">
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="text-center py-12">
-    <p class="text-xl text-white font-pacifico">Made with 💖 & ✨ by Your Big Bro/Sis</p>
+  <footer class="text-center py-8 sm:py-12 px-4">
+    <p class="text-lg sm:text-xl text-white font-pacifico">Made with 💖 & ✨ by Siblings</p>
   </footer>
 
   <script>
@@ -250,8 +341,8 @@
         duration: 3,
         repeat: -1,
         ease: 'linear',
-        x: () => 60 * Math.cos((angle * Math.PI) / 180),
-        y: () => 60 * Math.sin((angle * Math.PI) / 180),
+        x: () => 40 * Math.cos((angle * Math.PI) / 180),
+        y: () => 40 * Math.sin((angle * Math.PI) / 180),
         xPercent: -50,
         yPercent: -50,
       });
@@ -284,8 +375,8 @@
       gsap.from('#surpriseSection', { duration: 1.5, y: 200, opacity: 0, ease: 'power3.out' });
       gsap.from('#cake', { duration: 1.5, y: 100, scale: 0, rotation: 360, ease: 'elastic', delay: 0.5 });
       confetti({
-        particleCount: 150,
-        spread: 80,
+        particleCount: 100,
+        spread: 70,
         origin: { y: 0.5 },
         colors: ['#ff4d94', '#b1a7ff', '#a3e4db'],
         shapes: ['circle', 'square', 'star'],
