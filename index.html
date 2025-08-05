@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy 20th Birthday, Sis!</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- GSAP CDN for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <!-- Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <!-- Google Fonts: Pacifico and Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #ffb1c8, #b1a7ff, #a3e4db);
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+      position: relative;
+    }
+    .sparkle {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
+      animation: sparkle 2.5s infinite;
+    }
+    @keyframes sparkle {
+      0% { transform: scale(0) rotate(0deg); opacity: 1; }
+      50% { transform: scale(1.8) rotate(180deg); opacity: 0.6; }
+      100% { transform: scale(0) rotate(360deg); opacity: 0; }
+    }
+    .heart {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: #ff4d94;
+      transform: rotate(-45deg);
+      animation: float 5s infinite;
+    }
+    .heart::before,
+    .heart::after {
+      content: '';
+      width: 15px;
+      height: 15px;
+      background: #ff4d94;
+      border-radius: 50%;
+      position: absolute;
+    }
+    .heart::before { top: -7.5px; left: 0; }
+    .heart::after { left: 7.5px; top: 0; }
+    @keyframes float {
+      0% { transform: translateY(0) rotate(-45deg); opacity: 1; }
+      100% { transform: translateY(-100vh) rotate(-45deg); opacity: 0; }
+    }
+    .photo-frame {
+      position: relative;
+      border: 10px solid #ff99cc;
+      border-radius: 50%;
+      box-shadow: 0 0 25px rgba(255, 105, 180, 0.7);
+      width: 320px;
+      height: 320px;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .photo-frame::before {
+      content: '🌟';
+      position: absolute;
+      font-size: 48px;
+      top: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-shadow: 0 0 15px #ff4d94, 0 0 30px #fff, 0 0 45px #ff99cc;
+      animation: glow 1s infinite;
+      z-index: 10; /* Increased to ensure visibility */
+    }
+    .photo-frame .star-orbit {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      font-size: 20px;
+      color: #fff;
+      text-shadow: 0 0 10px #ff4d94;
+      z-index: 5;
+    }
+    @keyframes glow {
+      0% { opacity: 1; transform: translateX(-50%) scale(1); }
+      50% { opacity: 0.5; transform: translateX(-50%) scale(1.3); }
+      100% { opacity: 1; transform: translateX(-50%) scale(1); }
+    }
+    .photo-carousel {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      z-index: 2; /* Ensure carousel is below the main star */
+    }
+    .photo-carousel img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      z-index: 2;
+    }
+    .photo-carousel img.active {
+      opacity: 1;
+    }
+    #surpriseSection { display: none; }
+    .kdrama-card, .med-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .kdrama-card:hover, .med-card:hover {
+      transform: scale(1.1) rotate(2deg);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    }
+    #countdown {
+      text-shadow: 0 0 15px #ff4d94, 0 0 30px #ff4d94;
+    }
+    .typewriter {
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 0.15em solid #ff4d94;
+      animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+    }
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    @keyframes blink-caret {
+      from, to { border-color: transparent; }
+      50% { border-color: #ff4d94; }
+    }
+  </style>
+</head>
+<body class="text-gray-900">
+  <!-- Header Section -->
+  <header class="text-center py-12">
+    <h1 class="text-6xl font-bold text-pink-600 font-pacifico typewriter inline-block" id="birthdayText">Happy 20th Birthday, Sis!</h1>
+    <p class="text-2xl mt-4 text-white font-semibold">Our K-Drama Queen & Future Doctor!</p>
+  </header>
+
+  <!-- Photo Section with Carousel -->
+  <section class="flex justify-center my-12">
+    <div class="photo-frame">
+      <div class="photo-carousel">
+        <img src="images/sister-photo1.jpg" alt="Sis Photo 1" class="active">
+        <img src="images/sister-photo2.jpg" alt="Sis Photo 2">
+        <img src="images/sister-photo3.jpg" alt="Sis Photo 3">
+        
+        <img src="images/sister-photo4.jpg" alt="Sis Photo 5">
+
+      </div>
+      <!-- Orbiting Stars -->
+      <div class="star-orbit" style="top: 10%; left: 10%;" data-angle="0">✨</div>
+      <div class="star-orbit" style="top: 10%; right: 10%;" data-angle="120">✨</div>
+      <div class="star-orbit" style="bottom: 10%; left: 10%;" data-angle="240">✨</div>
+    </div>
+  </section>
+
+  <!-- Countdown Section -->
+  <section class="text-center my-12">
+    <h2 class="text-4xl font-semibold text-purple-800 font-pacifico">Your Epic Journey</h2>
+    <p class="text-xl mt-2 text-white">Days since you blessed our world on August 5, 2005:</p>
+    <div id="countdown" class="text-6xl font-bold text-pink-500 mt-4"></div>
+  </section>
+
+  <!-- K-Drama and Medical College Section -->
+  <section class="text-center my-12 px-6">
+    <h2 class="text-4xl font-semibold text-purple-800 font-pacifico mb-8">Celebrating You!</h2>
+    <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- K-Drama Card -->
+      <div class="kdrama-card bg-white p-8 rounded-xl shadow-xl">
+        <h3 class="text-2xl font-semibold text-pink-600">Your K-Drama Obsession</h3>
+        <p class="mt-2 text-gray-700">
+          Swooning over *Crash Landing on You* or crying with *Goblin*? Your love for K-dramas brings magic to every moment!
+        </p>
+      </div>
+      <!-- Medical College Card -->
+      <div class="med-card bg-white p-8 rounded-xl shadow-xl">
+        <h3 class="text-2xl font-semibold text-pink-600">Future Dr. Legend!</h3>
+        <p class="mt-2 text-gray-700">
+          You’re stepping into medical college like a K-drama hero! Your heart and brilliance will save lives and inspire us all!
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Surprise Section -->
+  <section class="text-center my-12">
+    <button id="surpriseBtn" class="bg-pink-600 text-white px-10 py-4 rounded-full text-xl font-semibold hover:bg-pink-700 transition transform hover:scale-110">Unwrap Your K-Drama Surprise!</button>
+    <div id="surpriseSection" class="mt-8">
+      <h2 class="text-4xl font-bold text-purple-800 font-pacifico">A Magical Surprise for You!</h2>
+      <p class="text-xl mt-4 max-w-2xl mx-auto text-white">
+        You’re my favorite K-drama partner and future doctor! Here’s to endless marathons and saving lives!
+      </p>
+      <div class="mt-8">
+        <img src="images/cake.png" alt="Birthday Cake" class="mx-auto w-48 h-48" id="cake">
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center py-12">
+    <p class="text-xl text-white font-pacifico">Made with 💖 & ✨ by Your Big Bro/Sis</p>
+  </footer>
+
+  <script>
+    // Countdown Calculation
+    function calculateDaysSince() {
+      const birthDate = new Date('2005-08-05');
+      const today = new Date('2025-08-05');
+      const diffTime = Math.abs(today - birthDate);
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      document.getElementById('countdown').textContent = `${diffDays} Days`;
+    }
+    calculateDaysSince();
+
+    // Photo Carousel
+    const photos = document.querySelectorAll('.photo-carousel img');
+    let currentPhoto = 0;
+    function showNextPhoto() {
+      photos[currentPhoto].classList.remove('active');
+      currentPhoto = (currentPhoto + 1) % photos.length;
+      photos[currentPhoto].classList.add('active');
+      gsap.fromTo(photos[currentPhoto], 
+        { opacity: 0, x: 100 }, 
+        { opacity: 1, x: 0, duration: 0.5, ease: 'power2.out' }
+      );
+    }
+    setInterval(showNextPhoto, 4000);
+
+    // GSAP Animations
+    gsap.from('#birthdayText', { duration: 2, opacity: 0, x: -100, ease: 'power2.out' });
+    gsap.from('.photo-frame', { duration: 2, scale: 0, opacity: 0, rotation: 720, ease: 'elastic', delay: 0.5 });
+    gsap.from('#countdown', { duration: 1.5, opacity: 0, scale: 0.3, ease: 'bounce', delay: 1 });
+    gsap.from('section', { duration: 1.2, y: 150, opacity: 0, stagger: 0.4, delay: 1.2 });
+    gsap.from('.kdrama-card, .med-card', { duration: 1, x: (index) => index % 2 === 0 ? -200 : 200, opacity: 0, stagger: 0.3, delay: 1.5 });
+    gsap.to('.photo-frame', { duration: 2, scale: 1.05, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+
+    // Orbiting Stars Animation
+    const stars = document.querySelectorAll('.star-orbit');
+    stars.forEach((star, index) => {
+      const angle = parseFloat(star.getAttribute('data-angle'));
+      gsap.to(star, {
+        duration: 3,
+        repeat: -1,
+        ease: 'linear',
+        x: () => 60 * Math.cos((angle * Math.PI) / 180),
+        y: () => 60 * Math.sin((angle * Math.PI) / 180),
+        xPercent: -50,
+        yPercent: -50,
+      });
+    });
+
+    // Sparkle and Heart Animations
+    function createSparkle() {
+      const sparkle = document.createElement('div');
+      sparkle.classList.add('sparkle');
+      sparkle.style.left = `${Math.random() * 100}vw`;
+      sparkle.style.top = `${Math.random() * 100}vh`;
+      document.body.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 2500);
+    }
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = `${Math.random() * 100}vw`;
+      heart.style.animationDuration = `${Math.random() * 2 + 3}s`;
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createSparkle, 200);
+    setInterval(createHeart, 400);
+
+    // Surprise Section with Confetti and Cake Animation
+    document.getElementById('surpriseBtn').addEventListener('click', () => {
+      const surpriseSection = document.getElementById('surpriseSection');
+      surpriseSection.style.display = 'block';
+      gsap.from('#surpriseSection', { duration: 1.5, y: 200, opacity: 0, ease: 'power3.out' });
+      gsap.from('#cake', { duration: 1.5, y: 100, scale: 0, rotation: 360, ease: 'elastic', delay: 0.5 });
+      confetti({
+        particleCount: 150,
+        spread: 80,
+        origin: { y: 0.5 },
+        colors: ['#ff4d94', '#b1a7ff', '#a3e4db'],
+        shapes: ['circle', 'square', 'star'],
+      });
+    });
+  </script>
+</body>
+</html>
